@@ -2,20 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* Glow Effect for Static Elements */
+.glow {
+  box-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Pulsing Glow Effect */
+.pulse-glow {
+  animation: pulseGlow 2s infinite alternate;
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
+  }
+  100% {
+    box-shadow: 0 0 20px #38bdf8, 0 0 40px #38bdf8;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+/* Multicolor Glow Effect */
+.multi-glow {
+  animation: multiGlow 3s infinite alternate;
+}
+
+@keyframes multiGlow {
+  0% {
+    box-shadow: 0 0 10px #38bdf8, 0 0 20px #34d399;
+  }
+  50% {
+    box-shadow: 0 0 20px #fbbf24, 0 0 40px #fbbf24;
+  }
+  100% {
+    box-shadow: 0 0 10px #38bdf8, 0 0 20px #34d399;
+  }
 }
