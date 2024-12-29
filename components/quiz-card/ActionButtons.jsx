@@ -6,23 +6,31 @@ const ActionButtons = ({
   onSubmit,
   onReset,
   isSubmitted,
+  selectedOption,
 }) => {
   return (
     <div className="flex justify-between mt-4">
-      {/* Reset Button */}
-      {isSubmitted && (
-        <button className="btn btn-neutral" onClick={onReset}>
-          Reset
-        </button>
-      )}
-
-      {/* Navigation Buttons */}
-      {!isSubmitted && (
+      {isSubmitted ? (
+        // Show "Next" or "Submit" after feedback
         <button
-          className={`btn ${isLastQuestion ? "btn-primary" : "btn-accent"}`}
-          onClick={isLastQuestion ? onSubmit : onNext}
+          className={`btn w-full ${
+            selectedOption ? "btn-accent" : "btn-disabled"
+          }`}
+          onClick={isLastQuestion ? onReset : onNext}
+          disabled={!selectedOption}
         >
-          {isLastQuestion ? "Submit" : "Next"}
+          {isLastQuestion ? "Finish Quiz" : "Next Question"}
+        </button>
+      ) : (
+        // Show "Submit" before feedback
+        <button
+          className={`btn w-full ${
+            selectedOption ? "btn-primary" : "btn-disabled"
+          }`}
+          onClick={onSubmit}
+          disabled={!selectedOption}
+        >
+          Submit Answer
         </button>
       )}
     </div>

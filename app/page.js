@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import RobotAnimation from "@/components/animations/RobotAnimation";
 
 const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -24,15 +25,9 @@ const Hero = () => {
 
   return (
     <div className="hero min-h-screen bg-base-100 text-neutral-content relative overflow-hidden">
-      {/* Subtle Background Decorations */}
-      <div className="absolute w-16 h-16 bg-yellow-400 rounded-full opacity-20 animate-pulse top-10 left-16"></div>
-      <div className="absolute w-24 h-24 bg-teal-400 rounded-full opacity-10 animate-bounce bottom-20 right-20"></div>
-
       <div className="hero-content flex flex-col items-center text-center relative z-10">
         {/* Mascot */}
-        <div className="w-32 h-32 mb-4">
-          <img src="/mascot.png" alt="Mascot" className="w-full h-full glow" />
-        </div>
+        <RobotAnimation />
         {/* Headline */}
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-primary">
           Level Up Your ACT Game.

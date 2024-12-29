@@ -70,6 +70,7 @@ const QuizCard = () => {
         onSubmit={handleSubmit}
         onReset={handleReset}
         isSubmitted={isSubmitted}
+        selectedOption={selectedOption}
       />
     </div>
   );

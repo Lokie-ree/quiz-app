@@ -1,11 +1,12 @@
 "use client";
 
 import QuizCard from "@/components/quiz-card/QuizCard";
-import React from "react";
+import RobotAnimation from "@/components/animations/RobotAnimation";
 
 const page = () => {
   return (
-    <div className="min-h-screen px-8 flex items-center justify-center">
+    <div className="h-screen bg-base-200 px-4 flex flex-col items-center justify-center">
+      <RobotAnimation />
       <QuizCard />
     </div>
   );

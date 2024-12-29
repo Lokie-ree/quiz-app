@@ -26,14 +26,14 @@ const AnswerOptions = ({ options, onSelect, isSubmitted, correctAnswer }) => {
             className={`w-full p-3 text-left rounded-lg border transition-all ${
               isSubmitted
                 ? isCorrect
-                  ? "bg-primary text-white border-primary"
+                  ? "text-white border-success"
                   : isWrong
-                  ? "bg-error text-white border-error"
+                  ? "text-white border-error"
                   : "bg-base-100 border-neutral"
                 : isSelected
-                ? "bg-accent text-white border-accent"
+                ? "text-white border-accent"
                 : "bg-base-100 border-neutral"
-            } hover:bg-accent hover:text-white`}
+            } hover:bg-neutral hover:text-white`}
             onClick={() => handleSelect(option)}
             disabled={isSubmitted}
           >

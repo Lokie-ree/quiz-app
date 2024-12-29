@@ -37,3 +37,8 @@
     box-shadow: 0 0 10px #38bdf8, 0 0 20px #34d399;
   }
 }
+
+.btn-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
