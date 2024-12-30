@@ -1,41 +1,60 @@
 import React, { useState } from "react";
+import { useQuizContext } from "@/app/context/QuizContext";
 import QuestionDisplay from "./QuestionDisplay";
 import AnswerOptions from "./AnswerOptions";
 import ActionButtons from "./ActionButtons";
-import Feedback from "./Feedback";
-import mockQuestions from "../../data/mockQuestions.json";
 
 const QuizCard = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const { quizState, saveAnswer, setQuizState } = useQuizContext();
   const [selectedOption, setSelectedOption] = useState(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isCorrect, setIsCorrect] = useState(false);
 
-  const question = mockQuestions[currentIndex];
+  const currentIndex = quizState.currentIndex;
+  const question = quizState.questions[currentIndex];
 
   const handleOptionSelect = (option) => {
     setSelectedOption(option);
   };
 
-  const handleNext = () => {
-    setSelectedOption(null);
-    setIsSubmitted(false);
-    setCurrentIndex((prev) => prev + 1);
-  };
-
   const handleSubmit = () => {
     setIsSubmitted(true);
-    setIsCorrect(selectedOption === question.correctAnswer);
+  };
+
+  const handleNext = () => {
+    if (!selectedOption) {
+      saveAnswer(question);
+    } else {
+      saveAnswer(
+        question,
+        selectedOption,
+        selectedOption === question.correctAnswer
+      );
+    }
+
+    // Reset local state
+    setSelectedOption(null);
+    setIsSubmitted(false);
+
+    // Update context state to move to the next question
+    setQuizState((prev) => ({
+      ...prev,
+      currentIndex: prev.currentIndex + 1,
+    }));
   };
 
   const handleReset = () => {
-    setCurrentIndex(0);
+    setQuizState((prev) => ({
+      ...prev,
+      currentIndex: 0,
+      userAnswers: [],
+    }));
     setSelectedOption(null);
     setIsSubmitted(false);
-    setIsCorrect(false);
   };
 
-  const isLastQuestion = currentIndex === mockQuestions.length - 1;
+  if (!question) {
+    return <p>Quiz Completed!</p>;
+  }
 
   return (
     <div className="w-full max-w-lg p-4 bg-base-300 rounded-lg shadow-lg">
@@ -43,7 +62,7 @@ const QuizCard = () => {
       <QuestionDisplay
         questionText={question.question}
         currentIndex={currentIndex + 1}
-        totalQuestions={mockQuestions.length}
+        totalQuestions={quizState.questions.length}
       />
 
       {/* Answer Options */}
@@ -54,18 +73,9 @@ const QuizCard = () => {
         correctAnswer={question.correctAnswer}
       />
 
-      {/* Feedback */}
-      {isSubmitted && (
-        <Feedback
-          isCorrect={isCorrect}
-          correctAnswer={question.correctAnswer}
-          explanation={question.explanation}
-        />
-      )}
-
       {/* Action Buttons */}
       <ActionButtons
-        isLastQuestion={isLastQuestion}
+        isLastQuestion={currentIndex === quizState.questions.length - 1}
         onNext={handleNext}
         onSubmit={handleSubmit}
         onReset={handleReset}

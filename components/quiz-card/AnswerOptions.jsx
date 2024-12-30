@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const AnswerOptions = ({ options, onSelect, isSubmitted, correctAnswer }) => {
+const AnswerOptions = ({ options, onSelect, isSubmitted }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleSelect = (option) => {
@@ -15,22 +15,13 @@ const AnswerOptions = ({ options, onSelect, isSubmitted, correctAnswer }) => {
   return (
     <div className="w-full flex flex-col space-y-3">
       {options.map((option, index) => {
-        const isCorrect = isSubmitted && option === correctAnswer;
-        const isWrong =
-          isSubmitted && option === selectedOption && option !== correctAnswer;
         const isSelected = option === selectedOption;
 
         return (
           <button
             key={index}
             className={`w-full p-3 text-left rounded-lg border transition-all ${
-              isSubmitted
-                ? isCorrect
-                  ? "text-white border-success"
-                  : isWrong
-                  ? "text-white border-error"
-                  : "bg-base-100 border-neutral"
-                : isSelected
+              isSelected
                 ? "text-white border-accent"
                 : "bg-base-100 border-neutral"
             } hover:bg-neutral hover:text-white`}
