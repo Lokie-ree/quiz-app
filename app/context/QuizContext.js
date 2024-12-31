@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useState, useContext } from "react";
 import mockQuestions from "../../data/mockQuestions.json";
 
@@ -11,10 +13,15 @@ export const QuizProvider = ({ children }) => {
   });
 
   const saveAnswer = (question, userAnswer, isCorrect) => {
-    setQuizState((prev) => ({
-      ...prev,
-      userAnswers: [...prev.userAnswers, { question, userAnswer, isCorrect }],
-    }));
+    setQuizState((prev) => {
+      const updatedAnswers = [...prev.userAnswers];
+      updatedAnswers[prev.currentIndex] = { question, userAnswer, isCorrect };
+
+      return {
+        ...prev,
+        userAnswers: updatedAnswers,
+      };
+    });
   };
 
   const resetQuiz = () => {

@@ -1,13 +1,30 @@
+"use client";
+
 import React from "react";
+import { useRouter } from "next/navigation";
+import { useQuizContext } from "@/app/context/QuizContext";
 
 const ActionButtons = ({
   isLastQuestion,
   onNext,
   onSubmit,
-  onReset,
   isSubmitted,
   selectedOption,
 }) => {
+  const router = useRouter();
+  const { quizState, saveAnswer } = useQuizContext();
+
+  const handleFinishedQuiz = () => {
+    saveAnswer(
+      quizState.questions[quizState.currentIndex],
+      selectedOption,
+      selectedOption ===
+        quizState.questions[quizState.currentIndex].correctAnswer
+    );
+
+    router.push("/results");
+  };
+
   return (
     <div className="flex justify-between mt-4">
       {isSubmitted ? (
@@ -17,7 +34,7 @@ const ActionButtons = ({
           }`}
           onClick={() => {
             if (isLastQuestion) {
-              onReset();
+              handleFinishedQuiz();
             } else {
               onNext();
             }
