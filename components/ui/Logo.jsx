@@ -8,8 +8,8 @@ const Logo = () => {
       <Image
         src="/logo.png"
         alt="ACTivate Brand Logo"
-        height={44}
-        width={44}
+        height={28}
+        width={28}
         className="mask mask-squircle shadow-lg"
         priority
       />

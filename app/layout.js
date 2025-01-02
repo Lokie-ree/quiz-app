@@ -28,6 +28,7 @@ export default function RootLayout({ children }) {
         <QuizProvider>
           <Navbar />
           {children}
+
           <Footer />
         </QuizProvider>
       </body>
